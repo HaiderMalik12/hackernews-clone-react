@@ -4,12 +4,14 @@ import * as API from '../shared/http';
 import Link from '../components/Link/Link';
 import Header from '../components/Header/Header';
 import ErrorMessage from '../components/Error/ErrorMessage';
+import Loader from 'react-loader-spinner';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      links: []
+      links: [],
+      loading: true
     };
   }
   componentDidMount() {
@@ -26,7 +28,8 @@ class App extends Component {
     API.fetchLinks()
       .then(response => {
         this.setState(() => ({
-          links: this.state.links.concat(response.data)
+          links: this.state.links.concat(response.data),
+          loading: false
         }));
       })
       .catch(err => {
@@ -42,7 +45,13 @@ class App extends Component {
     return (
       <div>
         <Header branding="Hacker News" />
-        {this.state.links.map(link => <Link key={link.id} link={link} />)}
+        {this.state.loading ? (
+          <Loader type="ThreeDots" color="#007bff" height={80} width={80} />
+        ) : (
+          <div>
+            {this.state.links.map(link => <Link key={link.id} link={link} />)}
+          </div>
+        )}
       </div>
     );
   }

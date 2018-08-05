@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as API from '../shared/http';
-import Link from '../components/Link';
+import Link from '../components/Link/Link';
+import Header from '../components/Header/Header';
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Header branding="Hacker News" />
         {this.state.links.map(link => <Link key={link.id} link={link} />)}
       </div>
     );

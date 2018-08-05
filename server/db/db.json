@@ -24,6 +24,31 @@
       "id": 5,
       "title": "Learn React ",
       "url": "http://www.google.com"
+    },
+    {
+      "id": 6,
+      "title": "Learn Angular and MEAN Stack",
+      "url": "http://udemy.com"
+    },
+    {
+      "id": 7,
+      "title": "Learn MongoDb ",
+      "url": "http://www.google.com"
+    },
+    {
+      "id": 8,
+      "title": "Learn GraphQL ",
+      "url": "http://www.google.com"
+    },
+    {
+      "id": 9,
+      "title": "Learn Relay ",
+      "url": "http://www.google.com"
+    },
+    {
+      "id": 10,
+      "title": "Learn Redux ",
+      "url": "http://www.google.com"
     }
   ]
 }

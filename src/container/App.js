@@ -26,7 +26,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
+      <div>
         {this.state.links.map(link => <Link key={link.id} link={link} />)}
       </div>
     );

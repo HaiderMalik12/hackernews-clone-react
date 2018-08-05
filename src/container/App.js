@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as API from '../shared/http';
+import Link from '../components/Link';
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +11,9 @@ class App extends Component {
     };
   }
   componentDidMount() {
+    this.getLinks();
+  }
+  getLinks() {
     API.fetchLinks()
       .then(response => {
         this.setState(() => ({
@@ -23,7 +27,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>App component</h1>
+        {this.state.links.map(link => <Link key={link.id} link={link} />)}
       </div>
     );
   }

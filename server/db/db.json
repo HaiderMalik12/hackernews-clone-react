@@ -1,16 +1,6 @@
 {
   "links": [
     {
-      "id": 1,
-      "title": "Learn Node",
-      "url": "http://fullstackhour.com"
-    },
-    {
-      "id": 2,
-      "title": "Learn GraphQL from beginner to advanced",
-      "url": "http://udemy.com"
-    },
-    {
       "id": 3,
       "title": "Learn Sailsjs",
       "url": "http://udemy.com"

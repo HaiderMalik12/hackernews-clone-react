@@ -38,6 +38,18 @@ class App extends Component {
         }));
       });
   }
+  deleteLink = id => {
+    API.deleteLink(id)
+      .then(response => {
+        const newLinks = this.state.links.filter(link => link.id !== id);
+        this.setState({ links: newLinks });
+      })
+      .catch(err => {
+        this.setState(() => ({
+          error: err
+        }));
+      });
+  };
   render() {
     if (this.state.error) {
       return <ErrorMessage error={this.state.error} />;
@@ -49,7 +61,13 @@ class App extends Component {
           <Loader type="ThreeDots" color="#007bff" height={80} width={80} />
         ) : (
           <div>
-            {this.state.links.map(link => <Link key={link.id} link={link} />)}
+            {this.state.links.map(link => (
+              <Link
+                key={link.id}
+                link={link}
+                deleteLinkHandler={this.deleteLink}
+              />
+            ))}
           </div>
         )}
       </div>

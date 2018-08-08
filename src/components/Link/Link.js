@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import './Link.css';
 import { Consumer } from '../../store/context';
 import * as API from '../../shared/http';
-import { DELETE_LINK_TYPE } from '../../store/action_types';
+import { DELETE_LINK_TYPE, ERROR_TYPE } from '../../store/action_types';
 
 const Link = props => {
   async function deleteLinkHandler(id, dispatch) {
     try {
       await API.deleteLink(id);
       dispatch({ type: DELETE_LINK_TYPE, payload: id });
-    } catch (err) {}
+    } catch (err) {
+      dispatch({ type: ERROR_TYPE, payload: err });
+    }
   }
   return (
     <Consumer>

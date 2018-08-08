@@ -9,6 +9,7 @@ const AppContext = React.createContext();
 export class AppProvider extends Component {
   state = {
     links: [],
+    error: null,
     dispatch: action => {
       return this.setState(state => {
         return reducer(state, action);

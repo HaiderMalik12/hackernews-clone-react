@@ -5,10 +5,28 @@ import ErrorMessage from './components/Error/ErrorMessage';
 //Provider component
 // Consumer
 const AppContext = React.createContext();
-
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'DELETE_LINK':
+      debugger;
+      return {
+        ...state,
+        links: state.links.filter(link => link.id !== action.payload)
+      };
+    default:
+      return state;
+  }
+};
 export class AppProvider extends Component {
   state = {
-    links: []
+    links: [],
+    dispatch: action => {
+      debugger;
+      return this.setState(state => {
+        debugger;
+        return reducer(state, action);
+      });
+    }
   };
 
   componentDidMount() {
@@ -25,8 +43,7 @@ export class AppProvider extends Component {
     API.fetchLinks()
       .then(response => {
         this.setState(() => ({
-          links: this.state.links.concat(response.data),
-          loading: false
+          links: this.state.links.concat(response.data)
         }));
       })
       .catch(err => {

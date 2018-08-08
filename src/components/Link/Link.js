@@ -1,29 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Link.css';
+import { Consumer } from '../../Context';
+import * as API from '../../shared/http';
 
 const Link = props => {
-  const { url, title, id } = props.link;
-  const { deleteLinkHandler } = props;
+  async function deleteLinkHandler(id, dispatch) {
+    try {
+      await API.deleteLink(id);
+      dispatch({ type: 'DELETE_LINK', payload: id });
+    } catch (err) {}
+  }
   return (
-    <div>
-      <div className="card">
-        <ul className="list-group">
-          <li className="list-group-item">
-            {title}
-            <a href={url} className="card-link" target="_blank">
-              <span style={{ color: 'grey' }}>({url})</span>
-            </a>{' '}
-            |
-            <i
-              className="fas fa-trash-alt"
-              style={{ margin: 10, cursor: 'pointer' }}
-              onClick={() => deleteLinkHandler(id)}
-            />
-          </li>
-        </ul>
-      </div>
-    </div>
+    <Consumer>
+      {value => {
+        const { url, title, id } = props.link;
+        const { dispatch } = value;
+        return (
+          <div>
+            <div className="card">
+              <ul className="list-group">
+                <li className="list-group-item">
+                  {title}
+                  <a href={url} className="card-link" target="_blank">
+                    <span style={{ color: 'grey' }}>({url})</span>
+                  </a>{' '}
+                  |
+                  <i
+                    className="fas fa-trash-alt"
+                    style={{ margin: 10, cursor: 'pointer' }}
+                    onClick={() => deleteLinkHandler(id, dispatch)}
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+        );
+      }}
+    </Consumer>
   );
 };
 Link.propTypes = {

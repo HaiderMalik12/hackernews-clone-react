@@ -1,16 +1,6 @@
 {
   "links": [
     {
-      "id": 3,
-      "title": "Learn Sailsjs",
-      "url": "http://udemy.com"
-    },
-    {
-      "id": 4,
-      "title": "Learn Angular and MEAN Stack",
-      "url": "http://udemy.com"
-    },
-    {
       "id": 5,
       "title": "Learn React ",
       "url": "http://www.google.com"

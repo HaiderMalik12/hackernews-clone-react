@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 
 export class AddLink extends Component {
+  state = {
+    title: '',
+    url: ''
+  };
+
+  onChangeHandler = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({ [name]: value });
+  };
+
   render() {
     return (
       <div className="card card-body">
@@ -12,6 +23,8 @@ export class AddLink extends Component {
               className="form-control"
               name="title"
               placeholder="Enter Title"
+              value={this.state.title}
+              onChange={this.onChangeHandler}
             />
           </div>
 
@@ -22,6 +35,8 @@ export class AddLink extends Component {
               className="form-control"
               name="url"
               placeholder="Enter Url"
+              value={this.state.url}
+              onChange={this.onChangeHandler}
             />
           </div>
           <button type="submit" className="btn btn-primary">

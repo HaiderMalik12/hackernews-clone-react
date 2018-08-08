@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import { AppProvider } from './store/context';
 import Links from './components/Link/Links';
+import { AddLink } from './components/Link/AddLink';
 
 class App extends Component {
   // deleteLink = id => {
@@ -23,6 +24,7 @@ class App extends Component {
       <AppProvider>
         <React.Fragment>
           <Header branding="Hacker News" />
+          <AddLink />
           <Links />
         </React.Fragment>
       </AppProvider>

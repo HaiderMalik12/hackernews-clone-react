@@ -31,7 +31,6 @@ Link.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
-  }),
-  deleteLinkHandler: PropTypes.func.isRequired
+  })
 };
 export default Link;

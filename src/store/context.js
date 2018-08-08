@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import * as API from './shared/http';
-import ErrorMessage from './components/Error/ErrorMessage';
+import * as API from '../shared/http';
+import ErrorMessage from '../components/Error/ErrorMessage';
+import { reducer } from './reducer';
 
 //Provider component
 // Consumer
 const AppContext = React.createContext();
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'DELETE_LINK':
-      return {
-        ...state,
-        links: state.links.filter(link => link.id !== action.payload)
-      };
-    default:
-      return state;
-  }
-};
 export class AppProvider extends Component {
   state = {
     links: [],
@@ -25,7 +15,6 @@ export class AppProvider extends Component {
       });
     }
   };
-
   componentDidMount() {
     this.getLinks();
   }

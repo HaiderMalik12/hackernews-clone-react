@@ -1,11 +1,6 @@
 {
   "links": [
     {
-      "id": 5,
-      "title": "Learn React ",
-      "url": "http://www.google.com"
-    },
-    {
       "id": 6,
       "title": "Learn Angular and MEAN Stack",
       "url": "http://udemy.com"

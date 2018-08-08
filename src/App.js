@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Header from './components/Header/Header';
-import { AppProvider } from './Context';
+import { AppProvider } from './store/context';
 import Links from './components/Link/Links';
 
 class App extends Component {

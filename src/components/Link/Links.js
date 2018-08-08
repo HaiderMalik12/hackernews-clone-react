@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Link from './Link';
 import Loader from 'react-loader-spinner';
-import { Consumer } from '../../Context';
+import { Consumer } from '../../store/context';
 
 export default class Links extends Component {
   render() {

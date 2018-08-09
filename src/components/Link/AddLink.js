@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Consumer } from '../../store/context';
 import * as API from '../../shared/http';
 import { ADD_LINK_TYPE, ERROR_TYPE } from '../../store/action_types';
+import TextInput from '../FormControl/TextInput';
 
 export class AddLink extends Component {
   state = {
@@ -34,29 +35,23 @@ export class AddLink extends Component {
           return (
             <div className="card card-body">
               <form onSubmit={this.onFormSubmit.bind(this, dispatch)}>
-                <div className="form-group">
-                  <label htmlFor="title">Title</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="title"
-                    placeholder="Enter Title"
-                    value={this.state.title}
-                    onChange={this.onChangeHandler}
-                  />
-                </div>
+                <TextInput
+                  label="Title"
+                  type="text"
+                  name="title"
+                  value={this.state.title}
+                  placeholder="Enter title"
+                  onChange={this.onChangeHandler}
+                />
 
-                <div className="form-group">
-                  <label htmlFor="title">Url</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="url"
-                    placeholder="Enter Url"
-                    value={this.state.url}
-                    onChange={this.onChangeHandler}
-                  />
-                </div>
+                <TextInput
+                  label="Url"
+                  type="text"
+                  name="url"
+                  value={this.state.url}
+                  placeholder="Enter url"
+                  onChange={this.onChangeHandler}
+                />
                 <button type="submit" className="btn btn-primary">
                   Submit
                 </button>

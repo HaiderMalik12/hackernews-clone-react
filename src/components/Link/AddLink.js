@@ -33,6 +33,7 @@ export class AddLink extends Component {
       const { data } = await API.createLink(newLink);
       dispatch({ type: ADD_LINK_TYPE, payload: data });
       this.setState({ title: '', url: '', errors: {} });
+      this.props.history.push('/');
     } catch (err) {
       dispatch({ type: ERROR_TYPE, payload: err });
     }

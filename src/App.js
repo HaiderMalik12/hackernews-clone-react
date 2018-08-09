@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import { AppProvider } from './store/context';
 import Links from './components/Link/Links';
 import { AddLink } from './components/Link/AddLink';
+import NotFound from './components/NotFound/NotFound';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Links} />
               <Route exact path="/links/submit" component={AddLink} />
+              <Route exact component={NotFound} />
             </Switch>
           </React.Fragment>
         </BrowserRouter>

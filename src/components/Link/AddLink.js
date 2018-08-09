@@ -7,7 +7,8 @@ import TextInput from '../FormControl/TextInput';
 export class AddLink extends Component {
   state = {
     title: '',
-    url: ''
+    url: '',
+    errors: {}
   };
 
   onChangeHandler = event => {
@@ -19,10 +20,19 @@ export class AddLink extends Component {
   onFormSubmit = async (dispatch, event) => {
     try {
       event.preventDefault();
-      const newLink = { ...this.state, id: Date.now().toString() };
+      const { title, url } = this.state;
+      if (title === '') {
+        this.setState({ errors: { title: 'title is required field' } });
+        return;
+      }
+      if (url === '') {
+        this.setState({ errors: { url: 'url is required field' } });
+        return;
+      }
+      const newLink = { title, url, id: Date.now().toString() };
       const { data } = await API.createLink(newLink);
       dispatch({ type: ADD_LINK_TYPE, payload: data });
-      this.setState({ title: '', url: '' });
+      this.setState({ title: '', url: '', errors: {} });
     } catch (err) {
       dispatch({ type: ERROR_TYPE, payload: err });
     }
@@ -42,6 +52,7 @@ export class AddLink extends Component {
                   value={this.state.title}
                   placeholder="Enter title"
                   onChange={this.onChangeHandler}
+                  error={this.state.errors.title}
                 />
 
                 <TextInput
@@ -51,6 +62,7 @@ export class AddLink extends Component {
                   value={this.state.url}
                   placeholder="Enter url"
                   onChange={this.onChangeHandler}
+                  error={this.state.errors.url}
                 />
                 <button type="submit" className="btn btn-primary">
                   Submit

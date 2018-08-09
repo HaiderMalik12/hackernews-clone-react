@@ -45,7 +45,7 @@ const Link = props => {
 };
 Link.propTypes = {
   link: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
   })

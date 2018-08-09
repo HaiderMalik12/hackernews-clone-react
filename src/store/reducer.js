@@ -1,7 +1,12 @@
-import { DELETE_LINK_TYPE, ERROR_TYPE } from './action_types';
+import { DELETE_LINK_TYPE, ERROR_TYPE, ADD_LINK_TYPE } from './action_types';
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case ADD_LINK_TYPE:
+      return {
+        ...state,
+        links: [action.payload, ...state.links]
+      };
     case DELETE_LINK_TYPE:
       return {
         ...state,

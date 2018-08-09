@@ -9,3 +9,7 @@ export function fetchLinks() {
 export function deleteLink(id) {
   return axios.delete(`${ENDPOINT}/links/${id}`);
 }
+
+export function createLink(link) {
+  return axios.post(`${ENDPOINT}/links`, link);
+}

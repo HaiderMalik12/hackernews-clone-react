@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 import './Link.css';
 import { Consumer } from '../../store/context';
 import * as API from '../../shared/http';
@@ -28,6 +29,12 @@ const Link = props => {
                   <a href={url} className="card-link" target="_blank">
                     <span style={{ color: 'grey' }}>({url})</span>
                   </a>{' '}
+                  <RouterLink to={`/links/edit/${id}`}>
+                    <i
+                      className="fas fa-edit"
+                      style={{ cursor: 'pointer', color: 'black' }}
+                    />
+                  </RouterLink>
                   |
                   <i
                     className="fas fa-trash-alt"

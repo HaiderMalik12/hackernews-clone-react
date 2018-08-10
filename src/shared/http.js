@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const ENDPOINT = 'http://localhost:1338';
+export const ENDPOINT =
+  process.env.API_URL || 'https://hacker-news-api.herokuapp.com';
 
 export function fetchLinks() {
   return axios.get(`${ENDPOINT}/links`);

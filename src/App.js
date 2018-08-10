@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import Header from './components/Header/Header';
@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <AppProvider>
-        <BrowserRouter>
+        <HashRouter>
           <React.Fragment>
             <Header branding="Hacker News" />
             <Switch>
@@ -23,7 +23,7 @@ class App extends Component {
               <Route exact component={NotFound} />
             </Switch>
           </React.Fragment>
-        </BrowserRouter>
+        </HashRouter>
       </AppProvider>
     );
   }

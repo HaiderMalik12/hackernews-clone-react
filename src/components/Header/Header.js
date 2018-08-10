@@ -21,7 +21,7 @@ const Header = props => {
       </button>
       <div className="collapse navbar-collapse" id="navbarColor01">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a className="nav-link" href="/">
               New
             </a>
@@ -30,7 +30,7 @@ const Header = props => {
             <a className="nav-link" href="/">
               Top
             </a>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link className="nav-link" to="/links/submit">
               Submit

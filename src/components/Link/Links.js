@@ -7,7 +7,6 @@ import { getLinks } from '../../store/actions/linkActions';
 
 class Links extends Component {
   componentDidMount() {
-    debugger;
     //1.
     this.props.getLinks();
   }

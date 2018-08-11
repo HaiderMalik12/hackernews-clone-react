@@ -68,7 +68,6 @@ const initialState = {
 export const linkReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_LINKS:
-      debugger;
       //2.
       return {
         ...state

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import * as API from '../../shared/http';
 import TextInput from '../FormControl/TextInput';
+import { connect } from 'react-redux';
+import { addLink } from '../../store/actions/linkActions';
 
-export class AddLink extends Component {
+class AddLink extends Component {
   state = {
     title: '',
     url: '',
@@ -18,6 +20,7 @@ export class AddLink extends Component {
   onFormSubmit = async event => {
     event.preventDefault();
     const { title, url } = this.state;
+    const { addLink } = this.props;
     if (title === '') {
       this.setState({ errors: { title: 'title is required field' } });
       return;
@@ -28,6 +31,7 @@ export class AddLink extends Component {
     }
     const newLink = { title, url, id: Date.now().toString() };
     //Disptach Action here
+    addLink(newLink);
     this.setState({ title: '', url: '', errors: {} });
     this.props.history.push('/');
   };
@@ -63,4 +67,7 @@ export class AddLink extends Component {
   }
 }
 
-export default AddLink;
+export default connect(
+  null,
+  { addLink }
+)(AddLink);

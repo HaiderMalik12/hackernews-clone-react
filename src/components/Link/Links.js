@@ -1,34 +1,25 @@
 import React, { Component } from 'react';
 import Link from './Link';
+import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import * as API from '../../shared/http';
+import { getLinks } from '../../store/actions/linkActions';
 
-export default class Links extends Component {
-  state = { links: [] };
+class Links extends Component {
   componentDidMount() {
-    this.getLinks();
-  }
-  getLinks() {
-    API.fetchLinks()
-      .then(response => {
-        this.setState(() => ({
-          links: this.state.links.concat(response.data)
-        }));
-      })
-      .catch(err => {
-        this.setState(() => ({
-          error: err
-        }));
-      });
+    debugger;
+    //1.
+    this.props.getLinks();
   }
   render() {
+    const { links } = this.props;
     return (
       <React.Fragment>
-        {!this.state.links.length ? (
+        {!links.length ? (
           <Loader type="ThreeDots" color="#007bff" height={80} width={80} />
         ) : (
           <div>
-            {this.state.links.map(link => (
+            {links.map(link => (
               <Link key={link.id} link={link} />
             ))}
           </div>
@@ -37,3 +28,17 @@ export default class Links extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    links: state.link.links
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    getLinks: () => dispatch(getLinks())
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Links);

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Consumer } from '../../store/context';
 import * as API from '../../shared/http';
-import { ERROR_TYPE, EDIT_LINK_TYPE } from '../../store/action_types';
 import TextInput from '../FormControl/TextInput';
 
 export class EditLink extends Component {
@@ -17,57 +15,44 @@ export class EditLink extends Component {
   };
   async componentDidMount() {
     const { id } = this.props.match.params;
-    const { data } = await API.getLinkById(id);
-    this.setState({ title: data.title, url: data.url });
+    //Fetch the link by id
   }
 
   onFormSubmit = async (dispatch, event) => {
-    try {
-      event.preventDefault();
-      const { title, url } = this.state;
-      const { id } = this.props.match.params;
-      const newLink = { title, url };
-      const { data } = await API.updateLink(id, newLink);
-      dispatch({ type: EDIT_LINK_TYPE, payload: data });
-      this.setState({ title: '', url: '' });
-      this.props.history.push('/');
-    } catch (err) {
-      dispatch({ type: ERROR_TYPE, payload: err });
-    }
+    event.preventDefault();
+    const { title, url } = this.state;
+    const { id } = this.props.match.params;
+    const newLink = { title, url };
+    //Dispatch Edit Action
+    this.setState({ title: '', url: '' });
+    this.props.history.push('/');
   };
   render() {
     return (
-      <Consumer>
-        {value => {
-          const { dispatch } = value;
-          return (
-            <div className="card card-body">
-              <form onSubmit={this.onFormSubmit.bind(this, dispatch)}>
-                <TextInput
-                  label="Title"
-                  type="text"
-                  name="title"
-                  value={this.state.title}
-                  placeholder="Enter title"
-                  onChange={this.onChangeHandler}
-                />
+      <div className="card card-body">
+        <form onSubmit={this.onFormSubmit.bind(this)}>
+          <TextInput
+            label="Title"
+            type="text"
+            name="title"
+            value={this.state.title}
+            placeholder="Enter title"
+            onChange={this.onChangeHandler}
+          />
 
-                <TextInput
-                  label="Url"
-                  type="text"
-                  name="url"
-                  value={this.state.url}
-                  placeholder="Enter url"
-                  onChange={this.onChangeHandler}
-                />
-                <button type="submit" className="btn btn-primary">
-                  Save
-                </button>
-              </form>
-            </div>
-          );
-        }}
-      </Consumer>
+          <TextInput
+            label="Url"
+            type="text"
+            name="url"
+            value={this.state.url}
+            placeholder="Enter url"
+            onChange={this.onChangeHandler}
+          />
+          <button type="submit" className="btn btn-primary">
+            Save
+          </button>
+        </form>
+      </div>
     );
   }
 }

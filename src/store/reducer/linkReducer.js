@@ -1,4 +1,4 @@
-import { GET_LINKS } from '../actions/types';
+import { GET_LINKS, DELETE_LINK } from '../actions/types';
 const initialState = {
   links: [
     {
@@ -71,6 +71,11 @@ export const linkReducer = (state = initialState, action) => {
       //2.
       return {
         ...state
+      };
+    case DELETE_LINK:
+      return {
+        ...state,
+        links: state.links.filter(link => link.id !== action.payload)
       };
     default:
       return state;

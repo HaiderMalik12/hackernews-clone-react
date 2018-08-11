@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Link from './Link';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import * as API from '../../shared/http';
@@ -27,6 +29,16 @@ class Links extends Component {
     );
   }
 }
+Links.propTypes = {
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+  getLinks: PropTypes.func.isRequired
+};
 const mapStateToProps = state => {
   return {
     links: state.link.links

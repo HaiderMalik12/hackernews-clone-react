@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Link.css';
 import * as API from '../../shared/http';
+import { deleteLink } from '../../store/actions/linkActions';
 
 class Link extends React.Component {
   render() {
     const { id, url, title } = this.props.link;
+    const { deleteLink } = this.props;
     return (
       <div>
         <div className="card">
@@ -26,6 +29,7 @@ class Link extends React.Component {
               <i
                 className="fas fa-trash-alt"
                 style={{ margin: 10, cursor: 'pointer' }}
+                onClick={() => deleteLink(id)}
               />
             </li>
           </ul>
@@ -40,6 +44,10 @@ Link.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  deleteLink: PropTypes.func.isRequired
 };
-export default Link;
+export default connect(
+  null,
+  { deleteLink }
+)(Link);

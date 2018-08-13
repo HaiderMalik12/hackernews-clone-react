@@ -1,6 +1,13 @@
-import { GET_LINKS, DELETE_LINK, ADD_LINK } from '../actions/types';
+import {
+  GET_LINKS,
+  DELETE_LINK,
+  ADD_LINK,
+  GET_LINK,
+  EDIT_LINK
+} from '../actions/types';
 const initialState = {
-  links: []
+  links: [],
+  link: {}
 };
 export const linkReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -9,6 +16,12 @@ export const linkReducer = (state = initialState, action) => {
       return {
         ...state,
         links: action.payload
+      };
+    case GET_LINK:
+      //2.
+      return {
+        ...state,
+        link: action.payload
       };
     case DELETE_LINK:
       return {

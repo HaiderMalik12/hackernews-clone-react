@@ -7,7 +7,7 @@ import Header from './components/Header/Header';
 import Links from './components/Link/Links';
 import AddLink from './components/Link/AddLink';
 import NotFound from './components/NotFound/NotFound';
-import { EditLink } from './components/Link/EditLink';
+import EditLink from './components/Link/EditLink';
 import store from './store';
 
 class App extends Component {

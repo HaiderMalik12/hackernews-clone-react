@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import * as API from '../../shared/http';
 import TextInput from '../FormControl/TextInput';
-
-export class EditLink extends Component {
+import { getLink, editLink } from '../../store/actions/linkActions';
+class EditLink extends Component {
   state = {
     title: '',
     url: ''
@@ -13,9 +16,15 @@ export class EditLink extends Component {
     const value = event.target.value;
     this.setState({ [name]: value });
   };
-  async componentDidMount() {
+  componentDidMount() {
     const { id } = this.props.match.params;
-    //Fetch the link by id
+    const { title, url } = this.props.link;
+    this.props.getLink(id);
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    const { id, title, url } = nextProps.link;
+    this.setState({ title, url });
   }
 
   onFormSubmit = async (dispatch, event) => {
@@ -56,5 +65,14 @@ export class EditLink extends Component {
     );
   }
 }
-
-export default EditLink;
+EditLink.propTypes = {
+  link: PropTypes.object.isRequired,
+  getLink: PropTypes.func.isRequired
+};
+const mapStateToProps = state => ({
+  link: state.link.link
+});
+export default connect(
+  mapStateToProps,
+  { getLink }
+)(EditLink);

@@ -15,9 +15,10 @@ export const deleteLink = id => async dispatch => {
     payload: id
   });
 };
-export const addLink = link => {
-  return {
+export const addLink = link => async dispatch => {
+  const { data } = await API.createLink(link);
+  dispatch({
     type: ADD_LINK,
-    payload: link
-  };
+    payload: data
+  });
 };

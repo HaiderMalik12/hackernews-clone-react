@@ -1,9 +1,13 @@
 import { GET_LINKS, DELETE_LINK, ADD_LINK } from './types';
+import * as API from '../../shared/http';
 
-export const getLinks = () => {
-  return {
-    type: GET_LINKS
-  };
+export const getLinks = () => async dispatch => {
+  //fetch all the links from the API
+  const { data } = await API.fetchLinks();
+  dispatch({
+    type: GET_LINKS,
+    payload: data
+  });
 };
 export const deleteLink = id => {
   return {

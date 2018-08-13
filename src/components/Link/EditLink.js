@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as API from '../../shared/http';
 import TextInput from '../FormControl/TextInput';
-import { getLink, editLink } from '../../store/actions/linkActions';
+import { getLink, updateLink } from '../../store/actions/linkActions';
 class EditLink extends Component {
   state = {
     title: '',
@@ -18,21 +17,21 @@ class EditLink extends Component {
   };
   componentDidMount() {
     const { id } = this.props.match.params;
-    const { title, url } = this.props.link;
     this.props.getLink(id);
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { id, title, url } = nextProps.link;
+    const { title, url } = nextProps.link;
     this.setState({ title, url });
   }
 
-  onFormSubmit = async (dispatch, event) => {
+  onFormSubmit = event => {
     event.preventDefault();
     const { title, url } = this.state;
     const { id } = this.props.match.params;
     const newLink = { title, url };
     //Dispatch Edit Action
+    this.props.updateLink(id, newLink);
     this.setState({ title: '', url: '' });
     this.props.history.push('/');
   };
@@ -67,12 +66,13 @@ class EditLink extends Component {
 }
 EditLink.propTypes = {
   link: PropTypes.object.isRequired,
-  getLink: PropTypes.func.isRequired
+  getLink: PropTypes.func.isRequired,
+  updateLink: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   link: state.link.link
 });
 export default connect(
   mapStateToProps,
-  { getLink }
+  { getLink, updateLink }
 )(EditLink);

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import * as API from '../../shared/http';
 import { getLinks } from '../../store/actions/linkActions';
 
 class Links extends Component {

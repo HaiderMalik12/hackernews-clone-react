@@ -3,7 +3,7 @@ import {
   DELETE_LINK,
   ADD_LINK,
   GET_LINK,
-  EDIT_LINK
+  UPDATE_LINK
 } from '../actions/types';
 const initialState = {
   links: [],
@@ -32,6 +32,13 @@ export const linkReducer = (state = initialState, action) => {
       return {
         ...state,
         links: [action.payload, ...state.links]
+      };
+    case UPDATE_LINK:
+      return {
+        ...state,
+        links: state.links.map(link => {
+          return link.id === action.payload.id ? action.payload : link;
+        })
       };
     default:
       return state;

@@ -1,4 +1,10 @@
-import { GET_LINKS, DELETE_LINK, ADD_LINK, GET_LINK, EDIT_LINK } from './types';
+import {
+  GET_LINKS,
+  DELETE_LINK,
+  ADD_LINK,
+  GET_LINK,
+  UPDATE_LINK
+} from './types';
 import * as API from '../../shared/http';
 
 export const getLinks = () => async dispatch => {
@@ -26,6 +32,13 @@ export const addLink = link => async dispatch => {
   const { data } = await API.createLink(link);
   dispatch({
     type: ADD_LINK,
+    payload: data
+  });
+};
+export const updateLink = (id, link) => async dispatch => {
+  const { data } = await API.updateLink(id, link);
+  dispatch({
+    type: UPDATE_LINK,
     payload: data
   });
 };

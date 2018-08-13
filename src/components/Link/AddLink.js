@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as API from '../../shared/http';
 import TextInput from '../FormControl/TextInput';
 import { connect } from 'react-redux';
 import { addLink } from '../../store/actions/linkActions';

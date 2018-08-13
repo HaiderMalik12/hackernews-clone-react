@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Link.css';
-import * as API from '../../shared/http';
 import { deleteLink } from '../../store/actions/linkActions';
 
 class Link extends React.Component {

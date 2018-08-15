@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import TextInput from '../FormControl/TextInput';
+import { firestoreConnect } from 'react-redux-firebase';
+import PropTypes from 'prop-types';
 
 class AddLink extends Component {
   state = {
@@ -17,7 +19,7 @@ class AddLink extends Component {
   onFormSubmit = async event => {
     event.preventDefault();
     const { title, url } = this.state;
-    const { addLink } = this.props;
+    const { firestore } = this.props;
     if (title === '') {
       this.setState({ errors: { title: 'title is required field' } });
       return;
@@ -29,8 +31,10 @@ class AddLink extends Component {
     const newLink = { title, url };
     //Disptach Action here
     //Save new link to firestore
-    this.setState({ title: '', url: '', errors: {} });
-    this.props.history.push('/');
+    firestore.add({ collection: 'links' }, newLink).then(() => {
+      this.setState({ title: '', url: '', errors: {} });
+      this.props.history.push('/');
+    });
   };
   render() {
     return (
@@ -63,5 +67,7 @@ class AddLink extends Component {
     );
   }
 }
-
-export default AddLink;
+AddLink.propTypes = {
+  firestore: PropTypes.object.isRequired
+};
+export default firestoreConnect()(AddLink);

@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import './Link.css';
+import { firestoreConnect } from 'react-redux-firebase';
 
 class Link extends React.Component {
   render() {
     const { id, url, title } = this.props.link;
+    const { firestore } = this.props;
     return (
       <div>
         <div className="card">
@@ -25,6 +27,9 @@ class Link extends React.Component {
               <i
                 className="fas fa-trash-alt"
                 style={{ margin: 10, cursor: 'pointer' }}
+                onClick={() =>
+                  firestore.delete({ collection: 'links', doc: id })
+                }
               />
             </li>
           </ul>
@@ -39,6 +44,8 @@ Link.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  firestore: PropTypes.object.isRequired
 };
-export default Link;
+
+export default firestoreConnect()(Link);

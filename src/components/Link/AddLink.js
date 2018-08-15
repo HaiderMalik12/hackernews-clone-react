@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import TextInput from '../FormControl/TextInput';
-import { connect } from 'react-redux';
-import { addLink } from '../../store/actions/linkActions';
 
 class AddLink extends Component {
   state = {
@@ -28,9 +26,9 @@ class AddLink extends Component {
       this.setState({ errors: { url: 'url is required field' } });
       return;
     }
-    const newLink = { title, url, id: Date.now().toString() };
+    const newLink = { title, url };
     //Disptach Action here
-    addLink(newLink);
+    //Save new link to firestore
     this.setState({ title: '', url: '', errors: {} });
     this.props.history.push('/');
   };
@@ -66,7 +64,4 @@ class AddLink extends Component {
   }
 }
 
-export default connect(
-  null,
-  { addLink }
-)(AddLink);
+export default AddLink;

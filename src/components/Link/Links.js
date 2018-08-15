@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import Link from './Link';
 import PropTypes from 'prop-types';
-
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
-import { getLinks } from '../../store/actions/linkActions';
+import Link from './Link';
 
 class Links extends Component {
+  state = {
+    links: [{ id: '1', url: 'http://fullstackhour.com', title: 'Learn Node' }]
+  };
   componentDidMount() {
     //1.
-    this.props.getLinks();
+    //Fetch all the links from the firebase
   }
   render() {
-    const { links } = this.props;
+    const { links } = this.state;
     return (
       <React.Fragment>
         {!links.length ? (
@@ -35,20 +35,7 @@ Links.propTypes = {
       url: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
     }).isRequired
-  ).isRequired,
-  getLinks: PropTypes.func.isRequired
+  ).isRequired
 };
-const mapStateToProps = state => {
-  return {
-    links: state.link.links
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    getLinks: () => dispatch(getLinks())
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Links);
+
+export default Links;

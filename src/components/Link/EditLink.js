@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import React, { Component } from 'react';
 import TextInput from '../FormControl/TextInput';
-import { getLink, updateLink } from '../../store/actions/linkActions';
+
 class EditLink extends Component {
   state = {
     title: '',
@@ -17,12 +15,7 @@ class EditLink extends Component {
   };
   componentDidMount() {
     const { id } = this.props.match.params;
-    this.props.getLink(id);
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    const { title, url } = nextProps.link;
-    this.setState({ title, url });
+    // this.props.getLink(id);
   }
 
   onFormSubmit = event => {
@@ -30,8 +23,7 @@ class EditLink extends Component {
     const { title, url } = this.state;
     const { id } = this.props.match.params;
     const newLink = { title, url };
-    //Dispatch Edit Action
-    this.props.updateLink(id, newLink);
+    //Update the link from firestore
     this.setState({ title: '', url: '' });
     this.props.history.push('/');
   };
@@ -69,10 +61,4 @@ EditLink.propTypes = {
   getLink: PropTypes.func.isRequired,
   updateLink: PropTypes.func.isRequired
 };
-const mapStateToProps = state => ({
-  link: state.link.link
-});
-export default connect(
-  mapStateToProps,
-  { getLink, updateLink }
-)(EditLink);
+export default EditLink;

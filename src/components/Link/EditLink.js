@@ -1,64 +1,83 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TextInput from '../FormControl/TextInput';
+import { firestoreConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import Loader from 'react-loader-spinner';
 
 class EditLink extends Component {
-  state = {
-    title: '',
-    url: ''
-  };
-
-  onChangeHandler = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({ [name]: value });
-  };
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    // this.props.getLink(id);
+  constructor(props) {
+    super(props);
+    this.titleInput = React.createRef();
+    this.urlInput = React.createRef();
   }
-
   onFormSubmit = event => {
     event.preventDefault();
-    const { title, url } = this.state;
-    const { id } = this.props.match.params;
-    const newLink = { title, url };
+    const { id, title, url } = this.props.link;
+    const { firestore } = this.props;
+    const updateLink = {
+      title: this.titleInput.current.value,
+      url: this.urlInput.current.value
+    };
     //Update the link from firestore
-    this.setState({ title: '', url: '' });
-    this.props.history.push('/');
+    firestore.update({ collection: 'links', doc: id }, updateLink).then(() => {
+      this.props.history.push('/');
+    });
   };
   render() {
-    return (
-      <div className="card card-body">
-        <form onSubmit={this.onFormSubmit.bind(this)}>
-          <TextInput
-            label="Title"
-            type="text"
-            name="title"
-            value={this.state.title}
-            placeholder="Enter title"
-            onChange={this.onChangeHandler}
-          />
+    if (this.props.link) {
+      const { id, title, url } = this.props.link;
+      return (
+        <div className="card card-body">
+          <form onSubmit={this.onFormSubmit.bind(this)}>
+            <div className="form-group">
+              <label>Title</label>
+              <input
+                type="text"
+                name="title"
+                defaultValue={title}
+                placeholder="Enter title"
+                className="form-control"
+                ref={this.titleInput}
+              />
+            </div>
+            <div className="form-group">
+              <label>Url</label>
+              <input
+                type="text"
+                name="url"
+                defaultValue={url}
+                placeholder="Enter url"
+                className="form-control"
+                ref={this.urlInput}
+              />
+            </div>
 
-          <TextInput
-            label="Url"
-            type="text"
-            name="url"
-            value={this.state.url}
-            placeholder="Enter url"
-            onChange={this.onChangeHandler}
-          />
-          <button type="submit" className="btn btn-primary">
-            Save
-          </button>
-        </form>
-      </div>
-    );
+            <button type="submit" className="btn btn-primary">
+              Save
+            </button>
+          </form>
+        </div>
+      );
+    } else {
+      return <Loader type="ThreeDots" color="#007bff" height={80} width={80} />;
+    }
   }
 }
 EditLink.propTypes = {
-  link: PropTypes.object.isRequired,
-  getLink: PropTypes.func.isRequired,
-  updateLink: PropTypes.func.isRequired
+  link: PropTypes.object,
+  firestore: PropTypes.object.isRequired
 };
-export default EditLink;
+
+export default compose(
+  firestoreConnect(props => [
+    {
+      collection: 'links',
+      doc: props.match.params.id,
+      storeAs: 'link'
+    }
+  ]),
+  connect(({ firestore: { ordered } }) => ({
+    link: ordered.link && ordered.link[0]
+  }))
+)(EditLink);

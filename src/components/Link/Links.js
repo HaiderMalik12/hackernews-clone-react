@@ -2,40 +2,36 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
 import Link from './Link';
+import { firestoreConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 class Links extends Component {
-  state = {
-    links: [{ id: '1', url: 'http://fullstackhour.com', title: 'Learn Node' }]
-  };
-  componentDidMount() {
-    //1.
-    //Fetch all the links from the firebase
-  }
   render() {
-    const { links } = this.state;
+    const { links } = this.props;
     return (
       <React.Fragment>
-        {!links.length ? (
-          <Loader type="ThreeDots" color="#007bff" height={80} width={80} />
-        ) : (
-          <div>
+        {links ? (
+          <React.Fragment>
             {links.map(link => (
               <Link key={link.id} link={link} />
             ))}
-          </div>
+          </React.Fragment>
+        ) : (
+          <Loader type="ThreeDots" color="#007bff" height={80} width={80} />
         )}
       </React.Fragment>
     );
   }
 }
 Links.propTypes = {
-  links: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+  firestore: PropTypes.object.isRequired,
+  links: PropTypes.array
 };
 
-export default Links;
+export default compose(
+  firestoreConnect(props => [{ collection: 'links' }]),
+  connect(state => ({
+    links: state.firestore.ordered.links
+  }))
+)(Links);

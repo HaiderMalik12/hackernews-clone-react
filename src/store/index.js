@@ -5,12 +5,12 @@ import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
 import { reduxFirestore, firestoreReducer } from 'redux-firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCaOhfbRnj-eT8bz8M3N6PnPwsKJcwS0nU',
-  authDomain: 'hackernews-dec50.firebaseapp.com',
-  databaseURL: 'https://hackernews-dec50.firebaseio.com',
-  projectId: 'hackernews-dec50',
-  storageBucket: 'hackernews-dec50.appspot.com',
-  messagingSenderId: '30634687950'
+  apiKey: 'AIzaSyCbi7z6z4yYkQrMbem-fZknqRbNGL06CqE',
+  authDomain: 'hackernews-18a9c.firebaseapp.com',
+  databaseURL: 'https://hackernews-18a9c.firebaseio.com',
+  projectId: 'hackernews-18a9c',
+  storageBucket: 'hackernews-18a9c.appspot.com',
+  messagingSenderId: '523749426122'
 };
 
 // react-redux firebase config

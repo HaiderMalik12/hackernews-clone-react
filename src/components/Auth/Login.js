@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextInput from '../FormControl/TextInput';
 import { firebaseConnect } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
+import { toastr } from 'react-redux-toastr';
 
 class Login extends Component {
   state = {
@@ -31,14 +32,9 @@ class Login extends Component {
     const user = { email, password };
     //Disptach Action here
     //Save new link to firestore
-    firebase
-      .login(user)
-      .then(() => {
-        alert('User loggedIn');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    firebase.login(user).catch(err => {
+      toastr.error('Invalid credentials');
+    });
   };
   render() {
     return (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import ReduxToastr from 'react-redux-toastr';
 import './App.css';
 
 import Header from './components/Header/Header';
@@ -20,6 +21,16 @@ class App extends Component {
         <BrowserRouter>
           <React.Fragment>
             <Header branding="Hacker News" />
+            <ReduxToastr
+              timeOut={4000}
+              newestOnTop={false}
+              preventDuplicates
+              position="top-right"
+              transitionIn="fadeIn"
+              transitionOut="fadeOut"
+              progressBar
+              closeOnToastrClick
+            />
             <Switch>
               <Route exact path="/" component={UserIsAuthenticated(Links)} />
               <Route

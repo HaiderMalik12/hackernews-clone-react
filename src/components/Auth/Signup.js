@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextInput from '../FormControl/TextInput';
 import { firebaseConnect } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
+import { toastr } from 'react-redux-toastr';
 
 class Signup extends Component {
   state = {
@@ -31,14 +32,9 @@ class Signup extends Component {
     const newUser = { email, password };
     //Disptach Action here
     //Save new link to firestore
-    firebase
-      .createUser(newUser)
-      .then(() => {
-        alert('User created');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    firebase.createUser(newUser).catch(err => {
+      toastr.error('Could not create account');
+    });
   };
   render() {
     return (

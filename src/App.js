@@ -10,6 +10,7 @@ import NotFound from './components/NotFound/NotFound';
 import EditLink from './components/Link/EditLink';
 import store from './store';
 import Signup from './components/Auth/Signup';
+import Login from './components/Auth/Login';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
               <Route exact path="/" component={Links} />
               <Route exact path="/links/submit" component={AddLink} />
               <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
               <Route exact path="/links/edit/:id" component={EditLink} />
               <Route exact component={NotFound} />
             </Switch>

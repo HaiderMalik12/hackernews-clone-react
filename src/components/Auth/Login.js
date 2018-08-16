@@ -3,7 +3,7 @@ import TextInput from '../FormControl/TextInput';
 import { firebaseConnect } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
 
-class Signup extends Component {
+class Login extends Component {
   state = {
     email: '',
     password: '',
@@ -28,13 +28,13 @@ class Signup extends Component {
       this.setState({ errors: { password: 'password is required field' } });
       return;
     }
-    const newUser = { email, password };
+    const user = { email, password };
     //Disptach Action here
     //Save new link to firestore
     firebase
-      .createUser(newUser)
+      .login(user)
       .then(() => {
-        alert('User created');
+        alert('User loggedIn');
       })
       .catch(err => {
         console.log(err);
@@ -64,14 +64,14 @@ class Signup extends Component {
             error={this.state.errors.password}
           />
           <button type="submit" className="btn btn-primary">
-            Signup
+            Login
           </button>
         </form>
       </div>
     );
   }
 }
-Signup.propTypes = {
+Login.propTypes = {
   firebase: PropTypes.object.isRequired
 };
-export default firebaseConnect()(Signup);
+export default firebaseConnect()(Login);

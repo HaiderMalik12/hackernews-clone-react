@@ -13,7 +13,7 @@ class EditLink extends Component {
   }
   onFormSubmit = event => {
     event.preventDefault();
-    const { id, title, url } = this.props.link;
+    const { id } = this.props.link;
     const { firestore } = this.props;
     const updateLink = {
       title: this.titleInput.current.value,
@@ -26,7 +26,7 @@ class EditLink extends Component {
   };
   render() {
     if (this.props.link) {
-      const { id, title, url } = this.props.link;
+      const { title, url } = this.props.link;
       return (
         <div className="card card-body">
           <form onSubmit={this.onFormSubmit.bind(this)}>
